@@ -1,5 +1,25 @@
 import { useState } from 'react';
 
+
+// eslint-disable-next-line react/prop-types
+const Statistics=({ good, neutral, bad, total, mean, positivePercent })=>{ 
+
+return (<>
+    <h1>
+      Statistics
+    </h1> 
+    <p>good, {good}</p>
+    <p>neutral, {neutral}</p>
+    <p>bad, {bad}</p>
+    <p>total, {total()}</p>
+    <p>average, {mean()}</p>
+    <p>positive, {positivePercent()}%</p>
+
+
+</>)
+
+}
+
 const App = () => {
   // save clicks of each button to its own state
   const [good, setGood] = useState(0);
@@ -42,15 +62,15 @@ const App = () => {
       <button onClick={incrementBad}>Bad</button>
 
     </div>
-    <h1>
-      Statistics
-    </h1> 
-    <p>good, {good}</p>
-    <p>neutral, {neutral}</p>
-    <p>bad, {bad}</p>
-    <p>total, {total()}</p>
-    <p>average, {mean()}</p>
-    <p>positive, {positivePercent()}%</p>
+    <Statistics 
+      good={good}
+      bad={bad}
+      neutral={neutral}
+      total={total}
+      mean={mean}
+      positivePercent={positivePercent}
+    />
+    
     </>
   )
 }
