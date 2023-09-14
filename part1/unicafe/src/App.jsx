@@ -2,8 +2,8 @@ import { useState } from 'react';
 
 // eslint-disable-next-line react/prop-types
 const StatisticLine=({text,value})=>{
-  if (text=="positivePercent") return <p>{text}, {value}%</p>
-  return <p>{text}, {value}</p>
+  if (text=="positive") return (<tr><td>{text}</td><td>{value} %</td></tr>)
+  return (<tr><td>{text}</td><td>{value}</td></tr>)
  
 }
 
@@ -22,12 +22,17 @@ const Statistics=({ good, neutral, bad, total, mean, positivePercent })=>{
     <h1>
       Statistics
     </h1> 
-    <StatisticLine text="good" value ={good} />
-    <StatisticLine text="neutral" value ={neutral} />
-    <StatisticLine text="bad" value ={bad} />
-    <StatisticLine text="total" value ={total()} />
-    <StatisticLine text="mean" value ={mean()} />
-    <StatisticLine text="positivePercent" value ={positivePercent()} />
+
+    <table>  
+      <tbody>
+        <StatisticLine text="good" value ={good} />
+        <StatisticLine text="neutral" value ={neutral} />
+        <StatisticLine text="bad" value ={bad} />
+        <StatisticLine text="total" value ={total()} />
+        <StatisticLine text="mean" value ={mean()} />
+        <StatisticLine text="positive" value ={positivePercent()} />
+      </tbody>
+    </table>
 </>)
 }
 
