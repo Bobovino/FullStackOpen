@@ -1,5 +1,11 @@
 import { useState } from 'react';
 
+// eslint-disable-next-line react/prop-types
+const StatisticLine=({text,value})=>{
+  if (text=="positivePercent") return <p>{text}, {value}%</p>
+  return <p>{text}, {value}</p>
+ 
+}
 
 // eslint-disable-next-line react/prop-types
 const Statistics=({ good, neutral, bad, total, mean, positivePercent })=>{ 
@@ -16,15 +22,23 @@ const Statistics=({ good, neutral, bad, total, mean, positivePercent })=>{
     <h1>
       Statistics
     </h1> 
-    <p>good, {good}</p>
-    <p>neutral, {neutral}</p>
-    <p>bad, {bad}</p>
-    <p>total, {total()}</p>
-    <p>average, {mean()}</p>
-    <p>positive, {positivePercent()}%</p>
+    <StatisticLine text="good" value ={good} />
+    <StatisticLine text="neutral" value ={neutral} />
+    <StatisticLine text="bad" value ={bad} />
+    <StatisticLine text="total" value ={total()} />
+    <StatisticLine text="mean" value ={mean()} />
+    <StatisticLine text="positivePercent" value ={positivePercent()} />
 </>)
-
 }
+
+
+// eslint-disable-next-line react/prop-types
+const Button=({text,handleClick})=>{
+  return <button onClick={handleClick}>{text}</button>;
+}
+
+
+
 
 const App = () => {
   // save clicks of each button to its own state
@@ -63,9 +77,9 @@ const App = () => {
       Give feedback
     </h1>  
     <div>
-      <button onClick={incrementGood}>Good</button>
-      <button onClick={incrementNeutral}>Neutral</button>
-      <button onClick={incrementBad}>Bad</button>
+      <Button text="Good" handleClick={incrementGood} ></Button>
+      <Button text="Neutral" handleClick={incrementNeutral}></Button>
+      <Button text="Bad" handleClick={incrementBad}></Button>
 
     </div>
     <Statistics 
