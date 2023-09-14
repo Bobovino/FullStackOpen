@@ -4,7 +4,15 @@ import { useState } from 'react';
 // eslint-disable-next-line react/prop-types
 const Statistics=({ good, neutral, bad, total, mean, positivePercent })=>{ 
 
-return (<>
+  if (total() === 0) return (<>
+  <h1>
+    Statistics
+  </h1> 
+  <p>No feedback given</p> 
+  </>)
+
+  return (
+  <>
     <h1>
       Statistics
     </h1> 
@@ -14,8 +22,6 @@ return (<>
     <p>total, {total()}</p>
     <p>average, {mean()}</p>
     <p>positive, {positivePercent()}%</p>
-
-
 </>)
 
 }
