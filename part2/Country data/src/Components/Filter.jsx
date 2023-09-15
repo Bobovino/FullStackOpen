@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import Weather from './Weather'
 
 const Filter = ({ searchedCountry, setSearchedCountry, countries }) => {
   const [selectedCountry, setSelectedCountry] = useState(null);
@@ -37,6 +38,7 @@ const Filter = ({ searchedCountry, setSearchedCountry, countries }) => {
             <h3 key={index}>{selectedCountry.languages[key]}</h3>
           ))}
           <img src={selectedCountry.flags.png} alt="Country Flag" />
+          <Weather selectedCountry={selectedCountry}/>
         </>
       );
     }
