@@ -20,7 +20,7 @@ const App = () => {
       <h2>Phonebook</h2>
       <Filter persons={persons} />
       <Form persons={persons} setPersons={setPersons}  />
-      <Persons persons={persons}/>
+      <Persons persons={persons} setPersons={setPersons}/>
     </>
   );
 };
