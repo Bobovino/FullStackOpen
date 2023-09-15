@@ -1,38 +1,72 @@
+import { useState, useEffect } from 'react';
 
-const Filter=({searchedCountry,setSearchedCountry,countries})=>{
+const Filter = ({ searchedCountry, setSearchedCountry, countries }) => {
+  const [selectedCountry, setSelectedCountry] = useState(null);
+  const [filteredCountries, setFilteredCountries] = useState([]);
 
-const handleSearch=(e)=>{
-  setSearchedCountry(e.target.value)
-  }
+  useEffect(() => {
+    const newFilteredCountries = countries.filter((country) =>
+      country.name.common.toLowerCase().includes(searchedCountry.toLowerCase())
+    );
 
-  const findCountries=()=>{
-    if (!countries || countries.length === 0) {
-      return <p>Loading countries...</p>;
+    setFilteredCountries(newFilteredCountries);
+
+    if (newFilteredCountries.length === 1) {
+      setSelectedCountry(newFilteredCountries[0]);
+    } else {
+      setSelectedCountry(null);
     }
-    const filteredCountries = countries.filter(country => 
-      country.name.common.toLowerCase().includes(searchedCountry.toLowerCase()))
+  }, [searchedCountry, countries]);
 
-    if (filteredCountries.length==0) return <p>Loading countries...</p>
-      
-    if (filteredCountries.length>10)return <p >Too many results, be more specific</p>
-    else if (filteredCountries.length<=10 && filteredCountries.length>1) 
-    return <>{filteredCountries.map(country => <p key={country.name.common}>{country.name.common}</p>)}</>
-    return <>
-    <h1>{filteredCountries[0].name.common}</h1>
-    <p>Capital: {filteredCountries[0].capital}</p>
-    <p>Population: {filteredCountries[0].population}</p>
-    <h3>Languages</h3>
-    {Object.keys(filteredCountries[0].languages).map((key, index) => <p key={index}>{filteredCountries[0].languages[key]}</p>)}
-    <img src={filteredCountries[0].flags.png}></img>
+  const handleSearch = (e) => {
+    setSearchedCountry(e.target.value);
+  };
+
+  const handleSelectCountry = (country) => {
+    setSelectedCountry(country);
+  };
+
+  const renderCountries = () => {
+    if (selectedCountry) {
+      return (
+        <>
+          <h1>{selectedCountry.name.common}</h1>
+          <p>Capital: {selectedCountry.capital}</p>
+          <p>Population: {selectedCountry.population}</p>
+          {Object.keys(selectedCountry.languages).map((key, index) => (
+            <h3 key={index}>{selectedCountry.languages[key]}</h3>
+          ))}
+          <img src={selectedCountry.flags.png} alt="Country Flag" />
+        </>
+      );
+    }
+
+    if (filteredCountries.length > 10) {
+      return <p>Too many results, be more specific</p>;
+    } else if (filteredCountries.length <= 10 && filteredCountries.length > 1) {
+      return (
+        <>
+          {filteredCountries.map((country) => (
+            <div key={country.name.common}>
+              <span>{country.name.common}</span>
+              <button onClick={() => handleSelectCountry(country)}>Show</button>
+            </div>
+          ))}
+        </>
+      );
+    }
+    return null;
+  };
+
+  return (
+    <>
+      <div>
+        Find countries by name: <input value={searchedCountry} onChange={handleSearch} />
+      </div>
+      {renderCountries()}
     </>
-    
-  }
+  );
+};
 
-return(<>
-        <div>Find countries by name: <input value={searchedCountry} onChange={handleSearch} /></div>
-        {findCountries()}
-</>)
+export default Filter;
 
-}
-
-export default Filter

@@ -4,7 +4,6 @@ import Filter from './Components/Filter.jsx'
 
 const App = () => {
   const [countries, setCountries] = useState([]);
-  const [newCountry, setNewCountry] = useState('')
   const [searchedCountry,setSearchedCountry]=useState('')
 
   useEffect(() => {
@@ -23,7 +22,7 @@ const App = () => {
   return (
     <>
       <h2>Countries</h2>
-      <Filter searchedCountry={searchedCountry} setSearchedCountry={setSearchedCountry} countries={countries}/>
+      <Filter searchedCountry={searchedCountry} setSearchedCountry={setSearchedCountry} countries={countries} />
       
     </>
   );
