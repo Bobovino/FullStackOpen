@@ -1,7 +1,7 @@
 import { useState } from "react";
 import Crud from './Crud.jsx'
 
-const Form=({persons,setPersons})=>{
+const Form=({persons,setPersons,showNotification})=>{
 
   const [newName, setNewName] = useState('')
   const [newNumber, setNewNumber] = useState('')
@@ -20,6 +20,8 @@ const Form=({persons,setPersons})=>{
               setPersons(persons.map((person) => person.id !== existingPerson.id ? person : response.data));
               setNewName('');
               setNewNumber('');
+              showNotification(`Updating ${updatedPerson.name}`)
+
             })
             .catch((error) => {
               console.log('Error al actualizar la persona:', error);
@@ -38,6 +40,7 @@ const Form=({persons,setPersons})=>{
             setPersons(persons.concat(response.data));
             setNewName('')
             setNewNumber('')
+            showNotification(`Adding new person ${newPerson.name}`)
           })
           .catch(error => {
             console.log('Error al agregar la persona:', error)
